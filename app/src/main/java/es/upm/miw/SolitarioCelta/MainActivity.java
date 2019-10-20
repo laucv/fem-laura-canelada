@@ -14,8 +14,10 @@ import android.widget.RadioButton;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,6 +101,40 @@ public class MainActivity extends AppCompatActivity {
         miJuego.reiniciar();
     }
 
+    public void recuperarPartida(){
+        boolean hayContenido = false;
+        BufferedReader fin;
+        String linea;
+        try {
+            fin = new BufferedReader(
+                    new InputStreamReader(openFileInput(getString(R.string.ficheroPartidaGuardada))));
+            linea = fin.readLine();
+            while (linea != null) {
+                hayContenido = true;
+                miJuego.deserializaTablero(linea);
+                linea = fin.readLine();
+                Log.i(LOG_KEY, "Partida recuperada");
+            }
+            fin.close();
+            mostrarTablero();
+            Snackbar.make(
+                    findViewById(android.R.id.content),
+                    getString(R.string.txtRecuperadaPartidaGuardada),
+                    Snackbar.LENGTH_LONG
+            ).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!hayContenido) {
+            Snackbar.make(
+                    findViewById(android.R.id.content),
+                    getString(R.string.txtNoExistePartidaGuardada),
+                    Snackbar.LENGTH_LONG
+            ).show();
+
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.opcAjustes:
@@ -113,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.opcGuardarPartida:
                 guardarPartida();
+                return true;
+            case R.id.opcRecuperarPartida:
+                recuperarPartida();
                 return true;
                 // TODO!!! resto opciones
 
