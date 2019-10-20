@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void reiniciarJuego(){
+        miJuego.reiniciar();
+        mostrarTablero();
+    }
+
     public void recuperarPartida(){
         boolean hayContenido = false;
         BufferedReader fin;
