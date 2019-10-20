@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void recuperarPartida(){
         boolean hayContenido = false;
-        BufferedReader fin = null;
+        BufferedReader fin;
         String linea;
         try {
             fin = new BufferedReader(
@@ -107,11 +107,12 @@ public class MainActivity extends AppCompatActivity {
             linea = fin.readLine();
             while (linea != null) {
                 hayContenido = true;
-                Log.i(LOG_KEY, "Partida recuperada");
+                miJuego.deserializaTablero(linea);
                 linea = fin.readLine();
+                Log.i(LOG_KEY, "Partida recuperada");
             }
             fin.close();
-            miJuego.deserializaTablero(linea);
+            mostrarTablero();
             Snackbar.make(
                     findViewById(android.R.id.content),
                     getString(R.string.txtRecuperadaPartidaGuardada),
