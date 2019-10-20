@@ -37,5 +37,8 @@
     <string name="ficheroPartidaGuardada">PartidaGuardada</string>
     <string name="txtPartidaGuardada">La partida ha sido guardada con éxito</string>
 
+    <!-- Recuperar partida -->
+    <string name="txtRecuperadaPartidaGuardada">La partida ha sido recuperada con éxito</string>
+    <string name="txtNoExistePartidaGuardada">No hay ninguna partida guardada para poder recuperarla</string>
 
 </resources>
