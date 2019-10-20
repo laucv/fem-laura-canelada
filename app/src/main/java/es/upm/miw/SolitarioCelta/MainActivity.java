@@ -1,6 +1,7 @@
 package es.upm.miw.SolitarioCelta;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.widget.RadioButton;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,6 +79,22 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void guardarPartida(){
+        try {
+            FileOutputStream fos = openFileOutput(getString(R.string.ficheroPartidaGuardada), Context.MODE_PRIVATE);
+            fos.write(miJuego.serializaTablero().getBytes());
+            fos.close();
+            Log.i(LOG_KEY, "Partida guardada actualizada");
+            Snackbar.make(
+                    findViewById(android.R.id.content),
+                    getString(R.string.txtPartidaGuardada),
+                    Snackbar.LENGTH_LONG
+            ).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void reiniciarJuego(){
         miJuego.reiniciar();
     }
@@ -90,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.opcReiniciarPartida:
                 RestartGameDialogFragment dialogFragment = new RestartGameDialogFragment();
                 dialogFragment.show(getFragmentManager(), "RestartGameDialog");
+                return true;
+            case R.id.opcGuardarPartida:
+                guardarPartida();
                 return true;
                 // TODO!!! resto opciones
 
