@@ -33,5 +33,9 @@
     <string name="txtDialogoReiniciarAfirmativo">Sí</string>
     <string name="txtDialogoReiniciarNegativo">No</string>
 
+    <!-- Guardar partida -->
+    <string name="ficheroPartidaGuardada">PartidaGuardada</string>
+    <string name="txtPartidaGuardada">La partida ha sido guardada con éxito</string>
+
 
 </resources>
