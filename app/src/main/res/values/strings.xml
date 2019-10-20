@@ -27,5 +27,11 @@
     <string name="prefTextoNombreJugador">Pulse para teclear el nombre del jugador</string>
     <string name="prefTituloCategoria2">Ajustes del juego</string>
 
+    <!-- Reiniciar partida -->
+    <string name="txtDialogoReiniciarPartidaTitulo">Reiniciar juego</string>
+    <string name="txtDialogoReiniciarPartidaPregunta">¿Desea empezar un nuevo juego?</string>
+    <string name="txtDialogoReiniciarAfirmativo">Sí</string>
+    <string name="txtDialogoReiniciarNegativo">No</string>
+
 
 </resources>
