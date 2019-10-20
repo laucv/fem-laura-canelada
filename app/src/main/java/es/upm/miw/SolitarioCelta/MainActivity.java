@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void reiniciarJuego(){
+        miJuego.reiniciar();
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.opcAjustes:
