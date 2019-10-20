@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
-	SCeltaViewModel miJuego;
+    SCeltaViewModel miJuego;
     public final String LOG_KEY = "MiW";
 
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
      * Se ejecuta al pulsar una ficha
      * Las coordenadas (i, j) se obtienen a partir del nombre del recurso, ya que el botón
      * tiene un identificador en formato pXY, donde X es la fila e Y la columna
+     *
      * @param v Vista de la ficha pulsada
      */
     public void fichaPulsada(@NotNull View v) {
@@ -82,8 +83,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.opcAcercaDe:
                 startActivity(new Intent(this, AcercaDe.class));
                 return true;
-
-            // TODO!!! resto opciones
+            case R.id.opcReiniciarPartida:
+                RestartGameDialogFragment dialogFragment = new RestartGameDialogFragment();
+                dialogFragment.show(getFragmentManager(), "RestartGameDialog");
+                return true;
+                // TODO!!! resto opciones
 
             default:
                 Snackbar.make(
