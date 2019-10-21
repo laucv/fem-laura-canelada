@@ -3,7 +3,9 @@ package es.upm.miw.SolitarioCelta;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,19 +22,25 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import es.upm.miw.SolitarioCelta.models.Puntuacion;
 import es.upm.miw.SolitarioCelta.models.RepositorioPuntuaciones;
 
 public class MainActivity extends AppCompatActivity {
 
     SCeltaViewModel miJuego;
     public static final String LOG_KEY = "MiW";
-    RepositorioPuntuaciones repositorioPuntuaciones;
+    static RepositorioPuntuaciones repositorioPuntuaciones;
+    SharedPreferences preferences;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
 
@@ -63,9 +71,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public String obtenerNombreJugador() {
+        String nombreJugador = preferences.getString(
+                getString(R.string.nombreJugadorKey),
+                getString(R.string.prefTituloNombreJugador)
+        );
+
+        Log.i(LOG_KEY, nombreJugador);
+
+        return nombreJugador;
+    }
+
     public void guardarPuntuacionEnBaseDeDatos(){
         String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: ", Locale.getDefault()).format(new Date());
-        repositorioPuntuaciones.add(getString(R.string.prefTextoNombreJugador), fecha, miJuego.numeroFichas());
+        repositorioPuntuaciones.add(obtenerNombreJugador(), fecha, miJuego.numeroFichas());
         Log.i(LOG_KEY, "Partida guardada");
     }
 
@@ -150,6 +169,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static List<Puntuacion> getMejoresResultados() {
+        return repositorioPuntuaciones.getBestPuntuaction();
+    }
+
+    public void borrarMejoresResultados(){
+        int numPuntuacionesBorradas = repositorioPuntuaciones.deleteBestPuntuations();
+        Log.i(LOG_KEY, "Se han borrado: " + numPuntuacionesBorradas);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.opcAjustes:
@@ -168,8 +196,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.opcRecuperarPartida:
                 recuperarPartida();
                 return true;
+            case R.id.opcMejoresResultados:
+                startActivity(new Intent(this, MejoresResultados.class));
                 // TODO!!! resto opciones
-
             default:
                 Snackbar.make(
                         findViewById(android.R.id.content),

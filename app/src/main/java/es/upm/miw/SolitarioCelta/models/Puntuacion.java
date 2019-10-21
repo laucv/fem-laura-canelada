@@ -87,4 +87,14 @@ public class Puntuacion implements Parcelable {
             return new Puntuacion[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Puntuacion= {" +
+                "id=" + id +
+                ", nombreJugador='" + nombreJugador + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", piezasRestantes=" + piezasRestantes +
+                '}';
+    }
 }
