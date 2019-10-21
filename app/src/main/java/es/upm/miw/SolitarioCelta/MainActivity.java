@@ -18,15 +18,23 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import es.upm.miw.SolitarioCelta.models.RepositorioPuntuaciones;
 
 public class MainActivity extends AppCompatActivity {
 
     SCeltaViewModel miJuego;
-    public final String LOG_KEY = "MiW";
+    public static final String LOG_KEY = "MiW";
+    RepositorioPuntuaciones repositorioPuntuaciones;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
 
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         mostrarTablero();
@@ -50,9 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
         mostrarTablero();
         if (miJuego.juegoTerminado()) {
-            // TODO guardar puntuación
+            guardarPuntuacionEnBaseDeDatos();
             new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
+    }
+
+    public void guardarPuntuacionEnBaseDeDatos(){
+        String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: ", Locale.getDefault()).format(new Date());
+        repositorioPuntuaciones.add(getString(R.string.prefTextoNombreJugador), fecha, miJuego.numeroFichas());
+        Log.i(LOG_KEY, "Partida guardada");
     }
 
     /**
