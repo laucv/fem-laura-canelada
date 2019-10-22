@@ -7,15 +7,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import es.upm.miw.SolitarioCelta.models.RepositorioPuntuaciones;
+
 public class MejoresResultados extends AppCompatActivity {
+
+    MiAdaptador miAdaptador;
+    RepositorioPuntuaciones repositorioPuntuaciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mejores_resultados);
 
+        repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
         ListView lista = findViewById(R.id.listaLV);
-        MiAdaptador miAdaptador = new MiAdaptador(this, R.layout.item_layout, MainActivity.getMejoresResultados());
+        miAdaptador = new MiAdaptador(this, R.layout.item_layout, MainActivity.getMejoresResultados());
         lista.setAdapter(miAdaptador);
     }
 
@@ -26,9 +32,8 @@ public class MejoresResultados extends AppCompatActivity {
     }
 
     public void borrarMejoresResultados(){
-        MainActivity mActivity= new MainActivity();
-        mActivity.borrarMejoresResultados();
-        //TODO finish();
+        repositorioPuntuaciones.deleteBestPuntuations();
+        miAdaptador.clear();
         Snackbar.make(
                 findViewById(android.R.id.content),
                 getString(R.string.txtBorrarMejoresResultados),
