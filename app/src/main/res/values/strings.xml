@@ -26,6 +26,7 @@
     <string name="prefTituloNombreJugador">Nombre del jugador</string>
     <string name="prefTextoNombreJugador">Pulse para teclear el nombre del jugador</string>
     <string name="prefTituloCategoria2">Ajustes del juego</string>
+    <string name="nombreJugadorKey">Nombre</string>
 
     <!-- Reiniciar partida -->
     <string name="txtDialogoReiniciarPartidaTitulo">Reiniciar juego</string>
@@ -40,5 +41,13 @@
     <!-- Recuperar partida -->
     <string name="txtRecuperadaPartidaGuardada">La partida ha sido recuperada con éxito</string>
     <string name="txtNoExistePartidaGuardada">No hay ninguna partida guardada para poder recuperarla</string>
+
+    <!-- Mejores puntuaciones -->
+    <string name="txtOpcionBorrarMejoresPuntuaciones">Borrar mejores puntuaciones</string>
+    <string name="txtDialogoMejoresResultados">Borrar mejores resultados</string>
+    <string name="txtDialogoMejoresResultadosPregunta">¿Quieres borrar los mejores resultados?</string>
+    <string name="txtDialogoMejoresResultadosAfirmativo">Sí</string>
+    <string name="txtDialogoMejoresResultadosNegativo">No</string>
+    <string name="txtBorrarMejoresResultados">Los mejores resultados han sido borrados con éxito</string>
 
 </resources>

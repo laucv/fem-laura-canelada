@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta.models;
+package es.upm.miw.solitarioCelta.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -87,4 +87,14 @@ public class Puntuacion implements Parcelable {
             return new Puntuacion[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Puntuacion= {" +
+                "id=" + id +
+                ", nombreJugador='" + nombreJugador + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", piezasRestantes=" + piezasRestantes +
+                '}';
+    }
 }
