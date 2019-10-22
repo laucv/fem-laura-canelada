@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.solitarioCelta;
 
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import es.upm.miw.SolitarioCelta.models.RepositorioPuntuaciones;
+import es.upm.miw.solitarioCelta.models.RepositorioPuntuaciones;
 
 public class MejoresResultados extends AppCompatActivity {
 

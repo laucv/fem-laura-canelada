@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.solitarioCelta;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,26 +6,26 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-public class RestartGameDialogFragment extends DialogFragment {
+public class BorrarMejoresResultadosDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
 
-        final MainActivity mainActivity = (MainActivity) getActivity();
+        final MejoresResultados mejoresResultados = (MejoresResultados) getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getString(R.string.txtDialogoReiniciarPartidaTitulo));
-        builder.setMessage(getString(R.string.txtDialogoReiniciarPartidaPregunta));
+        builder.setTitle(getString(R.string.txtDialogoMejoresResultados));
+        builder.setMessage(getString(R.string.txtDialogoMejoresResultadosPregunta));
         builder.setPositiveButton(
-                getString(R.string.txtDialogoReiniciarAfirmativo),
+                getString(R.string.txtDialogoMejoresResultadosAfirmativo),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mainActivity.reiniciarJuego();
+                        mejoresResultados.borrarMejoresResultados();
                     }
                 }
         );
         builder.setNegativeButton(
-                getString(R.string.txtDialogoReiniciarNegativo),
+                getString(R.string.txtDialogoMejoresResultadosNegativo),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -36,4 +36,5 @@ public class RestartGameDialogFragment extends DialogFragment {
 
         return builder.create();
     }
+
 }

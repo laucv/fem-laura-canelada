@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta.models;
+package es.upm.miw.solitarioCelta.models;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,13 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.upm.miw.SolitarioCelta.MainActivity;
+import es.upm.miw.solitarioCelta.MainActivity;
 
-import static es.upm.miw.SolitarioCelta.models.PuntuacionContract.tablaPuntuacion;
+import static es.upm.miw.solitarioCelta.models.PuntuacionContract.tablaPuntuacion;
 
 public class RepositorioPuntuaciones extends SQLiteOpenHelper {
 

@@ -1,18 +1,18 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.solitarioCelta;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.List;
 
-import es.upm.miw.SolitarioCelta.models.Puntuacion;
+import es.upm.miw.solitarioCelta.databinding.ItemLayoutBinding;
+import es.upm.miw.solitarioCelta.models.Puntuacion;
 
 
 public class MiAdaptador extends ArrayAdapter {
@@ -20,6 +20,7 @@ public class MiAdaptador extends ArrayAdapter {
     private Context context;
     private int idLayout;
     private List<Puntuacion> misDatos;
+    private static LayoutInflater layoutInflater;
 
 
     /**
@@ -41,22 +42,19 @@ public class MiAdaptador extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LinearLayout vista;
-
-        if (null != convertView) {
-            //Recibimos una vista para ser reciclada
-            vista = (LinearLayout) convertView;
-        } else {
-            //No recibimos nada, por lo que utilizamos el inflador
-            LayoutInflater inflador = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            vista = (LinearLayout) inflador.inflate(idLayout, parent, false);
+        if (layoutInflater == null) {
+            layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         }
 
-        //asignar contenido a los elementos de la vista
-        TextView tvLinea1 = vista.findViewById(R.id.tvLinearPuntuacion);
+        ItemLayoutBinding itemLayoutBinding = DataBindingUtil.getBinding(convertView);
 
-        tvLinea1.setText((misDatos.get(position).toString()));
+        if (itemLayoutBinding == null) {
+            itemLayoutBinding = DataBindingUtil.inflate(layoutInflater, idLayout, parent, false);
+        }
 
-        return vista;
+        itemLayoutBinding.setPuntuacion(misDatos.get(position));
+        itemLayoutBinding.executePendingBindings();
+
+        return itemLayoutBinding.getRoot();
     }
 }

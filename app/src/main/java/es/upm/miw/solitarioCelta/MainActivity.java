@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.solitarioCelta;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -17,7 +17,6 @@ import android.widget.RadioButton;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -25,8 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import es.upm.miw.SolitarioCelta.models.Puntuacion;
-import es.upm.miw.SolitarioCelta.models.RepositorioPuntuaciones;
+import es.upm.miw.solitarioCelta.models.Puntuacion;
+import es.upm.miw.solitarioCelta.models.RepositorioPuntuaciones;
 
 public class MainActivity extends AppCompatActivity {
 

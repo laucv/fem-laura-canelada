@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
 
-    <TextView
-        android:id="@+id/tvLinearPuntuacion"
+        <variable
+            name="puntuacion"
+            type="es.upm.miw.solitarioCelta.models.Puntuacion" />
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="17dp"></TextView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tvItemNombreJugador"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@{puntuacion.nombreJugador}"
+            android:textSize="17dp"></TextView>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvItemFecha"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@{puntuacion.fecha}"
+            android:textSize="17dp"></TextView>
+
+        <TextView
+            android:id="@+id/tvItemPiezasRestantes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@{String.valueOf(puntuacion.piezasRestantes)}"
+            android:textSize="17dp"></TextView>
+
+    </LinearLayout>
+</layout>
