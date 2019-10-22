@@ -18,8 +18,9 @@
             android:id="@+id/tvItemNombreJugador"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="@{puntuacion.nombreJugador}"
-            android:textSize="17dp"></TextView>
+            android:textSize="15dp"></TextView>
 
         <View
             android:layout_width="2dp"
@@ -32,12 +33,22 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvItemTxtFecha"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Fecha"
+                android:gravity="center"
+                android:textSize="15dp"></TextView>
+
+            <TextView
                 android:id="@+id/tvItemFecha"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@{puntuacion.fecha}"
-                android:textSize="17dp"></TextView>
+                android:textSize="15dp"></TextView>
 
             <View
                 android:layout_width="match_parent"
@@ -45,13 +56,22 @@
                 android:background="@color/light_grey" />
 
             <TextView
+                android:id="@+id/tvItemTxtPiezasRestantes"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Piezas restantes"
+                android:gravity="center"
+                android:textSize="15dp"></TextView>
+
+            <TextView
                 android:id="@+id/tvItemPiezasRestantes"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@{String.valueOf(puntuacion.piezasRestantes)}"
-                android:textSize="17dp"></TextView>
-
+                android:textSize="15dp"></TextView>
         </LinearLayout>
 
     </LinearLayout>
