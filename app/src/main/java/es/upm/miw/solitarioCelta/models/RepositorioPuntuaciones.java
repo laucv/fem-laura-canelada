@@ -27,7 +27,8 @@ public class RepositorioPuntuaciones extends SQLiteOpenHelper {
                     tablaPuntuacion._ID + " INTEGER PRIMARY KEY," +
                     tablaPuntuacion.COL_NAME_NOMBRE_JUGADOR + " TEXT," +
                     tablaPuntuacion.COL_NAME_FECHA + " TEXT," +
-                    tablaPuntuacion.COL_NAME_PIEZAS_RESTANTES + " INT)";
+                    tablaPuntuacion.COL_NAME_PIEZAS_RESTANTES + " INT," +
+                    tablaPuntuacion.COL_NAME_TIEMPO + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + tablaPuntuacion.TABLE_NAME;
@@ -48,12 +49,13 @@ public class RepositorioPuntuaciones extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long add(String nombreJugador, String fecha, int fichasRestantes) {
+    public long add(String nombreJugador, String fecha, int fichasRestantes, String tiempo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(tablaPuntuacion.COL_NAME_NOMBRE_JUGADOR, nombreJugador);
         values.put(tablaPuntuacion.COL_NAME_FECHA, fecha);
         values.put(tablaPuntuacion.COL_NAME_PIEZAS_RESTANTES, fichasRestantes);
+        values.put(tablaPuntuacion.COL_NAME_TIEMPO, tiempo);
         return db.insert(tablaPuntuacion.TABLE_NAME, null, values);
     }
 
@@ -80,7 +82,8 @@ public class RepositorioPuntuaciones extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_ID)),
                         cursor.getString(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_NOMBRE_JUGADOR)),
                         cursor.getString(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_FECHA)),
-                        cursor.getInt(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_PIEZAS_RESTANTES))
+                        cursor.getInt(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_PIEZAS_RESTANTES)),
+                        cursor.getString(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_TIEMPO))
                 );
                 listaPuntuacion.add(puntuacion);
                 cursor.moveToNext();

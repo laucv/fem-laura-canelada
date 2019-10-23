@@ -72,6 +72,29 @@
                 android:gravity="center"
                 android:text="@{String.valueOf(puntuacion.piezasRestantes)}"
                 android:textSize="15dp"></TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey" />
+
+            <TextView
+                android:id="@+id/tvItemTxtTiempo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Tiempo"
+                android:gravity="center"
+                android:textSize="15dp"></TextView>
+
+            <TextView
+                android:id="@+id/tvItemTiempo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{puntuacion.tiempo}"
+                android:textSize="15dp"></TextView>
         </LinearLayout>
 
     </LinearLayout>

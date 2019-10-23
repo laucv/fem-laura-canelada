@@ -13,19 +13,16 @@ public class Puntuacion implements Parcelable {
 
     private int piezasRestantes;
 
-    public Puntuacion(int id, String nombreJugador, String fecha, int piezasRestantes) {
+    private String tiempo;
+
+    public Puntuacion(int id, String nombreJugador, String fecha, int piezasRestantes, String tiempo) {
         this.id = id;
         this.nombreJugador = nombreJugador;
         this.fecha = fecha;
         this.piezasRestantes = piezasRestantes;
+        this.tiempo = tiempo;
     }
 
-
-    public Puntuacion(String nombreJugador, String fecha, int piezasRestantes) {
-        this.nombreJugador = nombreJugador;
-        this.fecha = fecha;
-        this.piezasRestantes = piezasRestantes;
-    }
 
     public int getId() {
         return id;
@@ -55,11 +52,20 @@ public class Puntuacion implements Parcelable {
         this.piezasRestantes = piezasRestantes;
     }
 
+    public String getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(String tiempo) {
+        this.tiempo = tiempo;
+    }
+
     protected Puntuacion(Parcel in) {
         id = in.readInt();
         nombreJugador = in.readString();
         fecha = in.readString();
         piezasRestantes = in.readInt();
+        tiempo = in.readString();
     }
 
     @Override
@@ -73,6 +79,7 @@ public class Puntuacion implements Parcelable {
         dest.writeString(nombreJugador);
         dest.writeString(fecha);
         dest.writeInt(piezasRestantes);
+        dest.writeString(tiempo);
     }
 
     @SuppressWarnings("unused")
@@ -90,11 +97,12 @@ public class Puntuacion implements Parcelable {
 
     @Override
     public String toString() {
-        return "Puntuacion= {" +
+        return "Puntuacion{" +
                 "id=" + id +
                 ", nombreJugador='" + nombreJugador + '\'' +
                 ", fecha='" + fecha + '\'' +
                 ", piezasRestantes=" + piezasRestantes +
+                ", tiempo='" + tiempo + '\'' +
                 '}';
     }
 }

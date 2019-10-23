@@ -219,4 +219,31 @@
             android:layout_toRightOf="@id/p63" />
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tiempo: "
+            android:textSize="20sp"></TextView>
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+
 </LinearLayout>

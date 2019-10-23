@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.RadioButton;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String LOG_KEY = "MiW";
     static RepositorioPuntuaciones repositorioPuntuaciones;
     SharedPreferences preferences;
+    Chronometer crono;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
 
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
+        crono = findViewById(R.id.chronometer);
+
         mostrarTablero();
     }
 
@@ -63,9 +68,17 @@ public class MainActivity extends AppCompatActivity {
         miJuego.jugar(i, j);
         Log.i(LOG_KEY, "#fichas=" + miJuego.numeroFichas());
 
+        if(miJuego.numeroFichas() == 32){
+            crono.setBase(SystemClock.elapsedRealtime());
+            crono.start();
+        }
+
         mostrarTablero();
+
         if (miJuego.juegoTerminado()) {
+            crono.stop();
             guardarPuntuacionEnBaseDeDatos();
+            crono.setBase(SystemClock.elapsedRealtime());
             new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
     }
@@ -81,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
         return nombreJugador;
     }
 
-    public void guardarPuntuacionEnBaseDeDatos(){
+    public void guardarPuntuacionEnBaseDeDatos() {
         String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: ", Locale.getDefault()).format(new Date());
-        repositorioPuntuaciones.add(obtenerNombreJugador(), fecha, miJuego.numeroFichas());
+        repositorioPuntuaciones.add(obtenerNombreJugador(), fecha, miJuego.numeroFichas(), crono.getText().toString());
         Log.i(LOG_KEY, "Partida guardada");
     }
 
@@ -113,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void guardarPartida(){
+    public void guardarPartida() {
         try {
             FileOutputStream fos = openFileOutput(getString(R.string.ficheroPartidaGuardada), Context.MODE_PRIVATE);
             fos.write(miJuego.serializaTablero().getBytes());
@@ -129,12 +142,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void reiniciarJuego(){
+    public void reiniciarJuego() {
         miJuego.reiniciar();
         mostrarTablero();
     }
 
-    public void recuperarPartida(){
+    public void recuperarPartida() {
         boolean hayContenido = false;
         BufferedReader fin;
         String linea;
@@ -172,11 +185,6 @@ public class MainActivity extends AppCompatActivity {
         return repositorioPuntuaciones.getBestPuntuaction();
     }
 
-    public void borrarMejoresResultados(){
-        int numPuntuacionesBorradas = repositorioPuntuaciones.deleteBestPuntuations();
-        Log.i(LOG_KEY, "Se han borrado: " + numPuntuacionesBorradas);
-    }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.opcAjustes:
@@ -197,14 +205,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.opcMejoresResultados:
                 startActivity(new Intent(this, MejoresResultados.class));
-                // TODO!!! resto opciones
             default:
-                Snackbar.make(
-                        findViewById(android.R.id.content),
-                        getString(R.string.txtSinImplementar),
-                        Snackbar.LENGTH_LONG
-                ).show();
+                return true;
         }
-        return true;
     }
 }
