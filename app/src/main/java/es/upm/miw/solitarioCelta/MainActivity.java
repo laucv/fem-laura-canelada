@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     static RepositorioPuntuaciones repositorioPuntuaciones;
     SharedPreferences preferences;
     Chronometer crono;
+    TextView txtFichasRestantes;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         crono = findViewById(R.id.chronometer);
+        txtFichasRestantes = findViewById(R.id.fichasRestantes);
 
         mostrarTablero();
     }
@@ -109,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
         String prefijoIdentificador = getPackageName() + ":id/p"; // formato: package:type/entry
         int idBoton;
 
+        txtFichasRestantes.setText(String.valueOf(miJuego.numeroFichas()));
+
         for (int i = 0; i < JuegoCelta.TAMANIO; i++)
             for (int j = 0; j < JuegoCelta.TAMANIO; j++) {
                 strRId = prefijoIdentificador + i + j;
@@ -144,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void reiniciarJuego() {
         miJuego.reiniciar();
+        crono.setBase(SystemClock.elapsedRealtime());
         mostrarTablero();
     }
 
