@@ -96,6 +96,43 @@ public class RepositorioPuntuaciones extends SQLiteOpenHelper {
         return listaPuntuacion;
     }
 
+    public List<Puntuacion> getBestPuntuactionOrderByTime() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sortOrder = tablaPuntuacion.COL_NAME_TIEMPO + " ASC";
+
+        Cursor cursor = db.query(
+                tablaPuntuacion.TABLE_NAME,   // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                null,              // The columns for the WHERE clause
+                null,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                sortOrder               // The sort order
+        );
+
+        List<Puntuacion> listaPuntuacion = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Puntuacion puntuacion = new Puntuacion(
+                        cursor.getInt(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_ID)),
+                        cursor.getString(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_NOMBRE_JUGADOR)),
+                        cursor.getString(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_FECHA)),
+                        cursor.getInt(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_PIEZAS_RESTANTES)),
+                        cursor.getString(cursor.getColumnIndex(tablaPuntuacion.COL_NAME_TIEMPO))
+                );
+                listaPuntuacion.add(puntuacion);
+                cursor.moveToNext();
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return listaPuntuacion;
+    }
+
     public int deleteBestPuntuations() {
         SQLiteDatabase db = this.getWritableDatabase();
         int deletedRows = db.delete(tablaPuntuacion.TABLE_NAME, null, null);

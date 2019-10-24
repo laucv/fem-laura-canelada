@@ -49,5 +49,7 @@
     <string name="txtDialogoMejoresResultadosAfirmativo">Sí</string>
     <string name="txtDialogoMejoresResultadosNegativo">No</string>
     <string name="txtBorrarMejoresResultados">Los mejores resultados han sido borrados con éxito</string>
+    <string name="txtOpcionOpcionFecha">Ordenar por fecha</string>
+    <string name="txtOrdenarPorFichasRestantes">Ordenar por fichas restantes</string>
 
 </resources>

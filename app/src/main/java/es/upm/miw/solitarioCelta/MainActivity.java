@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     TextView txtFichasRestantes;
     final String MI_CRONONOMETRO = "MI_CRONOMETRO";
 
-    //TODO Ordenar por tiempo y por número de fichas restantes
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -197,6 +195,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Puntuacion> getMejoresResultados() {
         return repositorioPuntuaciones.getBestPuntuaction();
+    }
+
+    public static List<Puntuacion> getMejoresResultadosOrdenadosPorTiempo() {
+        return repositorioPuntuaciones.getBestPuntuactionOrderByTime();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
