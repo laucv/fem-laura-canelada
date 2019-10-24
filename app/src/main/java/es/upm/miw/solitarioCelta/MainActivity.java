@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     Chronometer crono;
     TextView txtFichasRestantes;
+    final String MI_CRONONOMETRO = "MI_CRONOMETRO";
 
+    //TODO Ordenar por tiempo y por número de fichas restantes
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
         crono = findViewById(R.id.chronometer);
         txtFichasRestantes = findViewById(R.id.fichasRestantes);
+
+        if(null != savedInstanceState){
+            long valorAnterior = savedInstanceState.getLong(MI_CRONONOMETRO);
+            crono.setBase(valorAnterior);
+            crono.start();
+        }
 
         mostrarTablero();
     }
@@ -215,4 +223,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        outState.putLong(MI_CRONONOMETRO, crono.getBase());
+    }
 }
+
