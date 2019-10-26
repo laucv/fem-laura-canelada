@@ -10,4 +10,16 @@
         app:showAsAction="ifRoom"
         />
 
+    <item
+        android:id="@+id/opcOrdenarPorFecha"
+        android:title="@string/txtOpcionOpcionTiempo"
+        android:orderInCategory="10"
+        />
+
+    <item
+        android:id="@+id/opcOrdenarPorFichasRestantes"
+        android:title="@string/txtOrdenarPorFichasRestantes"
+        android:orderInCategory="100"
+        />
+
 </menu>

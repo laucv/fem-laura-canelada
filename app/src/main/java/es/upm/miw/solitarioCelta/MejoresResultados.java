@@ -13,6 +13,7 @@ public class MejoresResultados extends AppCompatActivity {
 
     MiAdaptador miAdaptador;
     RepositorioPuntuaciones repositorioPuntuaciones;
+    ListView lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class MejoresResultados extends AppCompatActivity {
         setContentView(R.layout.activity_mejores_resultados);
 
         repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
-        ListView lista = findViewById(R.id.listaLV);
+        lista = findViewById(R.id.listaLV);
         miAdaptador = new MiAdaptador(this, R.layout.item_layout, MainActivity.getMejoresResultados());
         lista.setAdapter(miAdaptador);
     }
@@ -46,6 +47,14 @@ public class MejoresResultados extends AppCompatActivity {
             case R.id.opcBorrarMejoresPuntuaciones:
                 BorrarMejoresResultadosDialogFragment dialogFragment = new BorrarMejoresResultadosDialogFragment();
                 dialogFragment.show(getFragmentManager(), "BorrarMejoresResultados");
+                return true;
+            case R.id.opcOrdenarPorFecha:
+                miAdaptador = new MiAdaptador(this, R.layout.item_layout, MainActivity.getMejoresResultadosOrdenadosPorTiempo());
+                lista.setAdapter(miAdaptador);
+                return true;
+            case R.id.opcOrdenarPorFichasRestantes:
+                miAdaptador = new MiAdaptador(this, R.layout.item_layout, MainActivity.getMejoresResultados());
+                lista.setAdapter(miAdaptador);
                 return true;
             default:
                 Snackbar.make(

@@ -3,6 +3,31 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:buttonTint">@color/colorRadioButtonAzul</item>
+    </style>
+
+    <style name="Theme.App.Morado" parent="AppTheme">
+        <item name="android:buttonTint">@color/colorRadioButtonMorado</item>
+    </style>
+
+    <style name="Theme.App.Verde" parent="AppTheme">
+        <item name="android:buttonTint">@color/colorRadioButtonVerde</item>
+    </style>
+
+    <style name="Theme.App.Amarillo" parent="AppTheme">
+        <item name="android:buttonTint">@color/colorRadioButtonAmarillo</item>
+    </style>
+
+    <style name="Theme.App.Rojo" parent="AppTheme">
+        <item name="android:buttonTint">@color/colorRadioButtonRojo</item>
+    </style>
+
+    <style name="Theme.App.Rosa" parent="AppTheme">
+        <item name="android:buttonTint">@color/colorRadioButtonRosa</item>
+    </style>
+
+    <style name="Theme.App.Naranja" parent="AppTheme">
+        <item name="android:buttonTint">@color/colorRadioButtonNaranja</item>
     </style>
 
     <style name="SCeltaRadioButton" >

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,17 +36,31 @@ public class MainActivity extends AppCompatActivity {
     public static final String LOG_KEY = "MiW";
     static RepositorioPuntuaciones repositorioPuntuaciones;
     SharedPreferences preferences;
-
+    Chronometer crono;
+    TextView txtFichasRestantes;
+    final String MI_CRONONOMETRO = "MI_CRONOMETRO";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //cambiarColoresAplicacion(obtenerColorAplicacion());
+
+        setContentView(R.layout.activity_main);
 
         repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
 
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
+        crono = findViewById(R.id.chronometer);
+        txtFichasRestantes = findViewById(R.id.fichasRestantes);
+
+        if (null != savedInstanceState) {
+            long valorAnterior = savedInstanceState.getLong(MI_CRONONOMETRO);
+            crono.setBase(valorAnterior);
+            crono.start();
+        }
+
         mostrarTablero();
     }
 
@@ -63,9 +80,17 @@ public class MainActivity extends AppCompatActivity {
         miJuego.jugar(i, j);
         Log.i(LOG_KEY, "#fichas=" + miJuego.numeroFichas());
 
+        if (miJuego.numeroFichas() == 32) {
+            crono.setBase(SystemClock.elapsedRealtime());
+            crono.start();
+        }
+
         mostrarTablero();
+
         if (miJuego.juegoTerminado()) {
+            crono.stop();
             guardarPuntuacionEnBaseDeDatos();
+            crono.setBase(SystemClock.elapsedRealtime());
             new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
     }
@@ -81,9 +106,20 @@ public class MainActivity extends AppCompatActivity {
         return nombreJugador;
     }
 
-    public void guardarPuntuacionEnBaseDeDatos(){
+    public String obtenerColorAplicacion() {
+        String color = preferences.getString(
+                getString(R.string.colorRadioButtonKey),
+                getString(R.string.colorRadioButton)
+        );
+
+        Log.i(LOG_KEY, color);
+
+        return color;
+    }
+
+    public void guardarPuntuacionEnBaseDeDatos() {
         String fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss: ", Locale.getDefault()).format(new Date());
-        repositorioPuntuaciones.add(obtenerNombreJugador(), fecha, miJuego.numeroFichas());
+        repositorioPuntuaciones.add(obtenerNombreJugador(), fecha, miJuego.numeroFichas(), crono.getText().toString());
         Log.i(LOG_KEY, "Partida guardada");
     }
 
@@ -95,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         String strRId;
         String prefijoIdentificador = getPackageName() + ":id/p"; // formato: package:type/entry
         int idBoton;
+
+        txtFichasRestantes.setText(String.valueOf(miJuego.numeroFichas()));
 
         for (int i = 0; i < JuegoCelta.TAMANIO; i++)
             for (int j = 0; j < JuegoCelta.TAMANIO; j++) {
@@ -113,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void guardarPartida(){
+    public void guardarPartida() {
         try {
             FileOutputStream fos = openFileOutput(getString(R.string.ficheroPartidaGuardada), Context.MODE_PRIVATE);
             fos.write(miJuego.serializaTablero().getBytes());
@@ -129,12 +167,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void reiniciarJuego(){
+    public void reiniciarJuego() {
         miJuego.reiniciar();
+        crono.setBase(SystemClock.elapsedRealtime());
         mostrarTablero();
     }
 
-    public void recuperarPartida(){
+    public void recuperarPartida() {
         boolean hayContenido = false;
         BufferedReader fin;
         String linea;
@@ -172,9 +211,16 @@ public class MainActivity extends AppCompatActivity {
         return repositorioPuntuaciones.getBestPuntuaction();
     }
 
-    public void borrarMejoresResultados(){
-        int numPuntuacionesBorradas = repositorioPuntuaciones.deleteBestPuntuations();
-        Log.i(LOG_KEY, "Se han borrado: " + numPuntuacionesBorradas);
+    public static List<Puntuacion> getMejoresResultadosOrdenadosPorTiempo() {
+        return repositorioPuntuaciones.getBestPuntuactionOrderByTime();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        cambiarColoresAplicacion(obtenerColorAplicacion());
+        setContentView(R.layout.activity_main);
+        mostrarTablero();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -197,14 +243,37 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.opcMejoresResultados:
                 startActivity(new Intent(this, MejoresResultados.class));
-                // TODO!!! resto opciones
             default:
-                Snackbar.make(
-                        findViewById(android.R.id.content),
-                        getString(R.string.txtSinImplementar),
-                        Snackbar.LENGTH_LONG
-                ).show();
+                return true;
         }
-        return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong(MI_CRONONOMETRO, crono.getBase());
+    }
+
+
+    public void cambiarColoresAplicacion(String currentTheme) {
+
+        if (currentTheme.equals("rosa")) {
+            setTheme(R.style.Theme_App_Rosa);
+        } else if (currentTheme.equals("morado")) {
+            setTheme(R.style.Theme_App_Morado);
+        } else if (currentTheme.equals("rojo")) {
+            setTheme(R.style.Theme_App_Rojo);
+        } else if (currentTheme.equals("amarillo")) {
+            setTheme(R.style.Theme_App_Amarillo);
+        } else if (currentTheme.equals("naranja")) {
+            setTheme(R.style.Theme_App_Naranja);
+        } else if (currentTheme.equals("verde")) {
+            setTheme(R.style.Theme_App_Verde);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
     }
 }
+
+

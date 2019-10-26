@@ -8,6 +8,11 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefTituloCategoria2">
-        <!-- TODO Añadir otros ajustes -->
+        <ListPreference
+            android:entries="@array/coloresApp"
+            android:entryValues="@array/coloresAppValores"
+            android:key="@string/colorRadioButtonKey"
+            android:title="@string/colorRadioButton"
+            android:summary="@string/textoCambiarColores"></ListPreference>
     </PreferenceCategory>
 </PreferenceScreen>

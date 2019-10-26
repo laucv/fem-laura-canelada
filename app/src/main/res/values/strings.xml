@@ -49,5 +49,10 @@
     <string name="txtDialogoMejoresResultadosAfirmativo">Sí</string>
     <string name="txtDialogoMejoresResultadosNegativo">No</string>
     <string name="txtBorrarMejoresResultados">Los mejores resultados han sido borrados con éxito</string>
+    <string name="txtOpcionOpcionTiempo">Ordenar por tiempo</string>
+    <string name="txtOrdenarPorFichasRestantes">Ordenar por fichas restantes</string>
+    <string name="colorRadioButtonKey">azul</string>
+    <string name="colorRadioButton">Color de la app</string>
+    <string name="textoCambiarColores">Puedes cambiar los colores utilizados por la aplicación a tu gusto</string>
 
 </resources>

@@ -13,5 +13,6 @@ final public class PuntuacionContract {
         static final String COL_NAME_NOMBRE_JUGADOR = "nombreJugador";
         static final String COL_NAME_FECHA = "fecha";
         static final String COL_NAME_PIEZAS_RESTANTES = "piezasRestantes";
+        static final String COL_NAME_TIEMPO = "tiempo";
     }
 }
