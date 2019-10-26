@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/opcOrdenarPorFecha"
-        android:title="@string/txtOpcionOpcionFecha"
+        android:title="@string/txtOpcionOpcionTiempo"
         android:orderInCategory="10"
         />
 

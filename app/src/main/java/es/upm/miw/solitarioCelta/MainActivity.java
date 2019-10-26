@@ -42,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        cambiarColoresAplicacion(obtenerColorAplicacion());
+
+        setContentView(R.layout.activity_main);
 
         repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         crono = findViewById(R.id.chronometer);
         txtFichasRestantes = findViewById(R.id.fichasRestantes);
 
-        if(null != savedInstanceState){
+        if (null != savedInstanceState) {
             long valorAnterior = savedInstanceState.getLong(MI_CRONONOMETRO);
             crono.setBase(valorAnterior);
             crono.start();
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         miJuego.jugar(i, j);
         Log.i(LOG_KEY, "#fichas=" + miJuego.numeroFichas());
 
-        if(miJuego.numeroFichas() == 32){
+        if (miJuego.numeroFichas() == 32) {
             crono.setBase(SystemClock.elapsedRealtime());
             crono.start();
         }
@@ -101,6 +104,17 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_KEY, nombreJugador);
 
         return nombreJugador;
+    }
+
+    public String obtenerColorAplicacion() {
+        String color = preferences.getString(
+                getString(R.string.colorRadioButtonKey),
+                getString(R.string.colorRadioButton)
+        );
+
+        Log.i(LOG_KEY, color);
+
+        return color;
     }
 
     public void guardarPuntuacionEnBaseDeDatos() {
@@ -227,10 +241,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putLong(MI_CRONONOMETRO, crono.getBase());
     }
+
+
+    public void cambiarColoresAplicacion(String currentTheme) {
+
+        if (currentTheme.equals("rosa")) {
+            setTheme(R.style.Theme_App_Rosa);
+        } else if (currentTheme.equals("morado")) {
+            setTheme(R.style.Theme_App_Morado);
+        } else if (currentTheme.equals("rojo")) {
+            setTheme(R.style.Theme_App_Rojo);
+        } else if (currentTheme.equals("amarillo")) {
+            setTheme(R.style.Theme_App_Amarillo);
+        } else if (currentTheme.equals("naranja")) {
+            setTheme(R.style.Theme_App_Naranja);
+        } else if (currentTheme.equals("verde")) {
+            setTheme(R.style.Theme_App_Verde);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+    }
 }
+
 

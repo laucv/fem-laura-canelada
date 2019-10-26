@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="coloresApp">
+        <item>Azul</item>
+        <item>Morado</item>
+        <item>Naranja</item>
+        <item>Verde</item>
+        <item>Amarillo</item>
+        <item>Rojo</item>
+        <item>Rosa</item>
+    </string-array>
+
+    <string-array name="coloresAppValores">
+            <item>azul</item>
+            <item>morado</item>
+            <item>naranja</item>
+            <item>verde</item>
+            <item>amarillo</item>
+            <item>rojo</item>
+            <item>rosa</item>
+    </string-array>
+</resources>

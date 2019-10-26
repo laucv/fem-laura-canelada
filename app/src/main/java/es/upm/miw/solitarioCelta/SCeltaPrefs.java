@@ -9,4 +9,5 @@ public class SCeltaPrefs extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
 	}
+
 }
