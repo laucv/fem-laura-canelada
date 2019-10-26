@@ -42,13 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //cambiarColoresAplicacion(obtenerColorAplicacion());
-
         setContentView(R.layout.activity_main);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         repositorioPuntuaciones = new RepositorioPuntuaciones(getApplicationContext());
 
         miJuego = ViewModelProviders.of(this).get(SCeltaViewModel.class);
