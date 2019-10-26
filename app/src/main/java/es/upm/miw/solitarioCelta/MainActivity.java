@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        cambiarColoresAplicacion(obtenerColorAplicacion());
+        //cambiarColoresAplicacion(obtenerColorAplicacion());
 
         setContentView(R.layout.activity_main);
 
@@ -213,6 +213,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Puntuacion> getMejoresResultadosOrdenadosPorTiempo() {
         return repositorioPuntuaciones.getBestPuntuactionOrderByTime();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        cambiarColoresAplicacion(obtenerColorAplicacion());
+        setContentView(R.layout.activity_main);
+        mostrarTablero();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
